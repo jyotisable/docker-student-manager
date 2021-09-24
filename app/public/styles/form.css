@@ -1,0 +1,24 @@
+form{
+    width: 40%;
+    margin: 0 auto;
+}
+
+input, select{
+    margin: 20px 30px;
+}
+
+.form-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions button, .actions a{
+    margin: 0 20px;
+}
