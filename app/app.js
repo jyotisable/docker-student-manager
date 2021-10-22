@@ -6,7 +6,7 @@ dotenv.config();
 const app = express();
 
 app.set('view engine', 'ejs');
-const uri = process.env.URL;
+const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}:${process.env.DB_PORT}/`
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
