@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/form.css">
+    <title>Form Student-Manager</title>
+</head>
+<body>
+    <header class="container">
+        <h1>Student Manager</h1>
+    </header>
+    <div class="form container">
+        <% if(student) {%>
+        <form action="/update/<%= student._id %>" method="post">
+        <% } %>
+        <% if(!student) {%>
+        <form action="/insert" method="post">
+        <% } %>
+            <div class="form-item">
+                Name: <input type="text" name="name" id="name"
+                    <% if(student) {%>
+                        value="<%=student.name%>"
+                    <% } %>
+                >
+            </div>
+            <br>
+            <div class="form-item">
+                Email: <input type="email" name="email" id="email"
+                    <% if(student) {%>
+                        value="<%=student.email%>"
+                    <% } %>
+                >
+            </div>
+            <br>
+            <div class="form-item">
+                Department: <select name="department" id="department">
+                    <% for(let i =0; i<departments.length; i++) {%>
+                        <option
+                            value="<%=departments[i].name%>"
+                            <% if(student) {%>
+                                <% if(student.department == departments[i].name) {%>
+                                    selected
+                                <% } %>
+                            <% } %>
+                        ><%=departments[i].name%></option>
+                    <% } %>
+                </select>
+            </div>
+            <br>
+            <div class="actions">
+                <a class="link-danger" href="/">Discard</a>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

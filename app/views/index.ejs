@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Home Student-Manager</title>
+</head>
+<body>
+    <header class="container">
+        <h1>Student Manager</h1>
+    </header>
+    <div class="content container">
+        <a class="btn btn-primary btn-right" href="/new">New Record</a>
+        <% if(!students || (students.length == 0)) { %>
+            <h3 class="not-found">No Records Found</h3>
+        <% } %>
+        <% if(students.length > 0) { %>
+        <table>
+            <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                <% for(let i =0; i<students.length; i++) {%>
+                    <tr>
+                        <td><%= i+1 %></td>
+                        <td><%= students[i].name %></td>
+                        <td><%= students[i].email %></td>
+                        <td><%= students[i].department %></td>
+                        <td><a class="link-primary" href="/edit/<%= students[i]._id %>">Edit</a> <a class="link-danger" href="/<%= students[i]._id %>">Delete</a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <% } %>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  student-manager:
+    image: student-manager
+    restart: always
+    environment:
+      DB_USERNAME: admin
+      DB_PASSWORD: admin123
+      DB_HOSTNAME: mongodb
+      DB_PORT: 27017
+    ports:
+      - 3000:3000
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    volumes:
+      - mongodb-data:/data/db
+volumes:
+  mongodb-data:
+    driver: local
