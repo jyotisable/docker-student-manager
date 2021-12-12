@@ -13,10 +13,7 @@ Student-Manager is a node JS application that performs simple CRUD operations on
 $ docker run --network <your-network> -d \
     --name <container-name> \
     -p <host-port>:3000 \
-        -e DB_USERNAME: <db-username> \
-        -e DB_PASSWORD: <db-password> \
-        -e DB_HOSTNAME: <db-hostname> \
-        -e DB_PORT: <db-port> \
+        -e MONGODB_CONNECTION_STRING: <connection-string> \
     student-manager:tag
            
     ```
@@ -30,10 +27,7 @@ services:
     image: student-manager
     restart: always
     environment:
-      DB_USERNAME: <db-username>
-      DB_PASSWORD: <db-password>
-      DB_HOSTNAME: <db-hostname>
-      DB_PORT: <db-port>
+      MONGODB_CONNECTION_STRING: <connection-string>
     ports:
       - 3000:3000
 ```
@@ -43,8 +37,5 @@ services:
 To interact with MongoDB Database:
 
 ```
-DB_USERNAME: <db-username>
-DB_PASSWORD: <db-password>
-DB_HOSTNAME: <db-hostname>
-DB_PORT: <db-port>
+MONGODB_CONNECTION_STRING: <connection-string>
 ```
