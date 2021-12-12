@@ -6,7 +6,8 @@ dotenv.config();
 const app = express();
 
 app.set('view engine', 'ejs');
-const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}:${process.env.DB_PORT}/`
+const uri = `${process.env.MONGODB_CONNECTION_STRING}`
+// const uri = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}:${process.env.DB_PORT}/`
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
@@ -40,7 +41,7 @@ app.get('/edit/:id', (req, res, next) => {
   MongoClient.connect(uri)
   .then(async client => {
     var db = client.db('student-manager');
-    var result = await db.collection('students').findOne({ "_id": ObjectId(id) });
+    var result = await db.collection('students').findOne({ "_id": id });
     var deptsResult = db.collection('departments').find();
     var departments = [];
     await deptsResult.forEach((i) => { departments.push(i) });
@@ -96,7 +97,7 @@ app.post('/update/:id', (req, res, next) => {
   .then(async client => {
     var db = client.db('student-manager');
     await db.collection('students').updateOne(
-      { "_id": ObjectId(id) },
+      { "_id": id },
       {
         $set: {
           "name": req.body.name,
@@ -119,7 +120,7 @@ app.get('/:id', (req, res) => {
   MongoClient.connect(uri)
   .then(client => {
     var db = client.db('student-manager');
-    db.collection('students').deleteOne({ "_id": ObjectId(id) })
+    db.collection('students').deleteOne({ "_id": id })
     .then(_ => {res.redirect('/');})
     .catch(err => { throw err });
   })
