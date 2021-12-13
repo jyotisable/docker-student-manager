@@ -42,14 +42,16 @@ app.get('/edit/:id', (req, res, next) => {
   MongoClient.connect(uri)
   .then(async client => {
     var db = client.db('student-manager');
-    var result = await db.collection('students').findOne({ "_id": ObjectID(id) });
-    var deptsResult = db.collection('departments').find();
-    var departments = [];
-    await deptsResult.forEach((i) => { departments.push(i) });
-    console.log(result)
-    if(!result) throw 'NOT_FOUND' + result;
-    client.close();
-    res.render('form', {student: result, departments: departments});
+    db.collection('students').findOne({ "_id": id }, function(err, result){
+      if(err) throw err;
+      var deptsResult = db.collection('departments').find();
+      var departments = [];
+      await deptsResult.forEach((i) => { departments.push(i) });
+      if(!result) throw 'NOT_FOUND';
+      client.close();
+      res.render('form', {student: result, departments: departments});
+    });
+    
   })
   .catch(err => {
     console.log(err);
