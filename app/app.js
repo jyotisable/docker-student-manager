@@ -2,7 +2,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const path = require('path')
 const dotenv = require('dotenv');
-const { ObjectID } = require('bson');
+const { ObjectID, ObjectId } = require('bson');
 dotenv.config();
 const app = express();
 
@@ -42,16 +42,14 @@ app.get('/edit/:id', (req, res, next) => {
   MongoClient.connect(uri)
   .then(async client => {
     var db = client.db('student-manager');
-    db.collection('students').findOne({ "_id": id }, function(err, result){
-      if(err) throw err;
-      var deptsResult = db.collection('departments').find();
-      var departments = [];
-      await deptsResult.forEach((i) => { departments.push(i) });
-      if(!result) throw 'NOT_FOUND';
-      client.close();
-      res.render('form', {student: result, departments: departments});
-    });
-    
+    var result = await db.collection('students').findOne({ "_id": ObjectId(id) });
+    var deptsResult = db.collection('departments').find();
+    var departments = [];
+    await deptsResult.forEach((i) => { departments.push(i) });
+    console.log(result)
+    if(!result) throw 'NOT_FOUND' + result;
+    client.close();
+    res.render('form', {student: result, departments: departments});
   })
   .catch(err => {
     console.log(err);
