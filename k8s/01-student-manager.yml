@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: student-manager-deployment
+  namespace: student-manager
   labels:
     app: student-manager
 spec:
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
       - name: student-manager
-        image: shoaib1999/student-manager:latest
+        image: shoaib1999/student-manager:v2.0
         ports:
         - containerPort: 3000
         resources:
@@ -39,6 +40,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: student-manager-service
+  namespace: student-manager
 spec:
   type: LoadBalancer
   selector:
