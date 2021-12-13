@@ -17,6 +17,7 @@ spec:
       containers:
       - name: student-manager
         image: shoaib1999/student-manager:v2.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
         resources:
