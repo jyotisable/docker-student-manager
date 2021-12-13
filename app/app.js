@@ -41,7 +41,7 @@ app.get('/edit/:id', (req, res, next) => {
   MongoClient.connect(uri)
   .then(async client => {
     var db = client.db('student-manager');
-    var result = await db.collection('students').findOne({ "_id": id });
+    var result = await db.collection('students').findOne({ "_id": ObjectId(id) });
     var deptsResult = db.collection('departments').find();
     var departments = [];
     await deptsResult.forEach((i) => { departments.push(i) });
