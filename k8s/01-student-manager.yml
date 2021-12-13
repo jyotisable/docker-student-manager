@@ -40,11 +40,10 @@ kind: Service
 metadata:
   name: student-manager-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: student-manager
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      nodePort: 30000
