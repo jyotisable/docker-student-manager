@@ -34,6 +34,7 @@ spec:
                 name: mongo-secret
                 key: MONGODB_CONNECTION_STRING
 
+
 ---
 
 apiVersion: v1
